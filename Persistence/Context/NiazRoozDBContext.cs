@@ -1,4 +1,5 @@
 ﻿using Application.Interface.Context;
+using Domain.Entities.Categories;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -13,6 +14,7 @@ namespace Persistence.Context
         public NiazRoozDBContext(DbContextOptions options) : base(options)
         {
         }
+        public DbSet<Category> Categories { get; set; }
 
     }
 }

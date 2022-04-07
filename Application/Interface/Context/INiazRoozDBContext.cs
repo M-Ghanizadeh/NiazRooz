@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Domain.Entities.Categories;
+using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -9,6 +11,7 @@ namespace Application.Interface.Context
 {
     public interface INiazRoozDBContext
     {
+        DbSet<Category> Categories { get; set; }
 
         int SaveChanges(bool acceptAllChangesOnSuccess);
         int SaveChanges();
