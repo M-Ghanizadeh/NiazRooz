@@ -1,9 +1,13 @@
+using Application.Interface.Context;
+using IOC;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Persistence.Context;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -23,7 +27,12 @@ namespace EndPoint
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            string contectionString = "Data Source=.; Initial Catalog=NiazRoozDB; Integrated Security=True;";
+            services.AddEntityFrameworkSqlServer().AddDbContext<NiazRoozDBContext>(option => option.UseSqlServer(contectionString));
+
             services.AddControllersWithViews();
+
+            RegisterServices(services);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -52,6 +61,11 @@ namespace EndPoint
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
             });
+        }
+        public static void RegisterServices(IServiceCollection service)
+        {
+            // اتصال به IOC
+            DpContainer.RegisterServices(service);
         }
     }
 }
